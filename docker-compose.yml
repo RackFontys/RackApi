@@ -1,0 +1,57 @@
+﻿version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"  # RabbitMQ default port
+      - "15672:15672"  # RabbitMQ management UI port
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - api_network
+  
+  rackapi:
+    build:
+      context: .
+      dockerfile: ./RackApi/Dockerfile  # Path to your Dockerfile
+    ports:
+      - "5283:80"  # Expose your .NET Core app port
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - api_network
+
+  message:
+    build:
+      context: .
+      dockerfile: ./RackApi.Chat/Dockerfile  # Path to your Dockerfile
+    ports:
+      - "5012:80"
+    depends_on:
+      - rabbitmq
+    networks:
+      - api_network
+
+  user:
+    build:
+      context: .
+      dockerfile: ./RackApi.User/Dockerfile  # Path to your Dockerfile
+    ports:
+      - "5114:80"
+    depends_on:
+      - rabbitmq
+    networks:
+      - api_network
+
+networks:
+  api_network:
+
+volumes:
+  rabbitmq_data:

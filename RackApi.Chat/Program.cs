@@ -1,4 +1,4 @@
-using RackApi.User;
+using RackApi.Chat;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var consumer = new RabbitMQConsumer();
-consumer.ConsumeMessages();
+// string? message;
+//
+// var producer = new RabbitMQProducer();
+// do
+// {
+//     Console.WriteLine("Send a message to RabbitMQ");
+//     message = Console.ReadLine();
+//     producer.PublishMessage(message);
+// }while(!string.Equals(message, "exit", StringComparison.CurrentCultureIgnoreCase));
 
 app.Run();

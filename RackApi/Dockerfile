@@ -1,30 +1,21 @@
-﻿# Use the official .NET Core SDK image
+﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY ["RackApi/RackApi.csproj", "RackApi/"]
+RUN dotnet restore "RackApi/RackApi.csproj"
+COPY . .
+WORKDIR "/src/RackApi"
+RUN dotnet build "RackApi.csproj" -c Release -o /app/build
 
-# Set the working directory in the container
+FROM build AS publish
+RUN dotnet publish "RackApi.csproj" -c Release -o /app/publish
+
+FROM base AS final
 WORKDIR /app
-
-# Copy the project file and restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
-
-# Copy the remaining source code
-COPY . ./
-
-# Build the application
-RUN dotnet publish -c Release -o out
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the published app from build stage
-COPY --from=build /app/out ./
-
-# Expose port 80 to the outside world
+COPY --from=publish /app/publish .
 EXPOSE 5283
-
-# Define the command to run the application
 ENTRYPOINT ["dotnet", "RackApi.dll"]
