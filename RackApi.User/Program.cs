@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 using RackApi.User;
+using RackApi.User.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Get connection string
+var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApiDbContext>(options =>
+    options.UseNpgsql(conn));
 
 // Add services to the container.
 

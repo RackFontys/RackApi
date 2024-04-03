@@ -35,6 +35,7 @@ public class UserController : ControllerBase
             id = id,
             name = name,
             email = email,
+            createdAt = DateTime.Now,
             companyId = companyId
         };
     }

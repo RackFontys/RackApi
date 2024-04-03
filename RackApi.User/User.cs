@@ -8,7 +8,7 @@ public class User
     
     public string email { get; set; }
 
-    public DateTime createdAt;
+    public DateTime createdAt { get; set; }
     
     public int companyId { get; set; }
 }
