@@ -12,16 +12,12 @@ public class RabbitMQProducer
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
         {
-            channel.QueueDeclare(queue: "my_queue",
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
 
             var body = Encoding.UTF8.GetBytes(message);
 
-            channel.BasicPublish(exchange: "",
-                routingKey: "my_queue",
+            channel.BasicPublish(exchange: "messages",
+                routingKey: string.Empty,
                 basicProperties: null,
                 body: body);
 

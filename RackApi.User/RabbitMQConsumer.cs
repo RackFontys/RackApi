@@ -15,11 +15,13 @@ public class RabbitMQConsumer
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
         {
-            channel.QueueDeclare(queue: "my_queue",
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+            channel.ExchangeDeclare(exchange: "messages", type: ExchangeType.Fanout);
+            
+            var queueName = channel.QueueDeclare().QueueName;
+
+            channel.QueueBind(queue: queueName,
+                exchange: "messages",
+                routingKey: string.Empty);
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
@@ -29,7 +31,7 @@ public class RabbitMQConsumer
                 Console.WriteLine(" [x] Received: {0}", message);
             };
 
-            channel.BasicConsume(queue: "my_queue",
+            channel.BasicConsume(queue: queueName,
                 autoAck: true,
                 consumer: consumer);
 

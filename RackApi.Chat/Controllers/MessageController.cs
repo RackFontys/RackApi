@@ -28,6 +28,25 @@ public class MessageController : ControllerBase
             id = Random.Shared.Next(0, 100)
         };
 
+        // var producer = new RabbitMQProducer();
+        // string stingJson = JsonConvert.SerializeObject(message);
+        // producer.PublishMessage(stingJson);
+        
+        return message;
+    }
+    
+
+    [HttpGet(Name = "SendMessage")]
+    public Message Post(string messageText, int userId)
+    {
+        var message = new Message
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now.Date),
+            messageText = messageText,
+            userId = userId,
+            id = Random.Shared.Next(0, 100)
+        };
+
         var producer = new RabbitMQProducer();
         string stingJson = JsonConvert.SerializeObject(message);
         producer.PublishMessage(stingJson);

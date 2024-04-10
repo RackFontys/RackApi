@@ -2,7 +2,7 @@ using RackApi.Chat;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container.z
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,15 +23,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// string? message;
-//
-// var producer = new RabbitMQProducer();
-// do
-// {
-//     Console.WriteLine("Send a message to RabbitMQ");
-//     message = Console.ReadLine();
-//     producer.PublishMessage(message);
-// }while(!string.Equals(message, "exit", StringComparison.CurrentCultureIgnoreCase));
 
 app.Run();
