@@ -1,7 +1,7 @@
-﻿using RackApi.User.Models;
+﻿using RackApi.Chat.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace RackApi.User.Data;
+namespace RackApi.Chat.Data;
 
 public class ApiDbContext : DbContext
 {
@@ -16,6 +16,6 @@ public class ApiDbContext : DbContext
         // connect to postgres with connection string from app settings
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
     }
-
-    public DbSet<UserModel> Users {get;set;}
+    
+    public DbSet<MessageModel> Messages {get;set;}
 }
