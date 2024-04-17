@@ -1,6 +1,7 @@
-﻿namespace RackApi.Chat;
-using System.Text;
+﻿using System.Text;
 using RabbitMQ.Client;
+
+namespace RackApi.User;
 
 public class RabbitMQProducer
 {
@@ -16,7 +17,7 @@ public class RabbitMQProducer
 
             var body = Encoding.UTF8.GetBytes(message);
 
-            channel.BasicPublish(exchange: "messages",
+            channel.BasicPublish(exchange: "delete",
                 routingKey: string.Empty,
                 basicProperties: null,
                 body: body);

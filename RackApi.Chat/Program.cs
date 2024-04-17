@@ -4,6 +4,8 @@ using RackApi.Chat;
 using RackApi.Chat.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using RackApi.Chat.Controllers;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<MessageController>();
+
 var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -35,6 +39,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
     };
 });
+
+builder.Logging.AddConsole(); // Add console logging
+builder.Logging.AddDebug(); // Add debug logging
 
 var app = builder.Build();
 
@@ -63,4 +70,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+var logger = app.Services.GetRequiredService<ILogger<RabbitMQConsumer>>();
+var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+var subscriber = new RabbitMQConsumer(logger, serviceScopeFactory);
+subscriber.ConsumeMessages();
+
+await app.RunAsync();

@@ -67,7 +67,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var consumer = new RabbitMQConsumer();
-consumer.ConsumeMessages();
-
 app.Run();

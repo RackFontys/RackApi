@@ -15,9 +15,9 @@ services:
   rackapi:
     build:
       context: .
-      dockerfile: ./RackApi/Dockerfile  # Path to your Dockerfile
+      dockerfile: ./RackApi/Dockerfile
     ports:
-      - "5283:80"  # Expose your .NET Core app port
+      - "5283:80"
     depends_on:
       - rabbitmq
     environment:
@@ -31,7 +31,7 @@ services:
   message:
     build:
       context: .
-      dockerfile: ./RackApi.Chat/Dockerfile  # Path to your Dockerfile
+      dockerfile: ./RackApi.Chat/Dockerfile
     ports:
       - "5012:80"
     depends_on:
@@ -42,7 +42,7 @@ services:
   user:
     build:
       context: .
-      dockerfile: ./RackApi.User/Dockerfile  # Path to your Dockerfile
+      dockerfile: ./RackApi.User/Dockerfile
     ports:
       - "5114:80"
     depends_on:

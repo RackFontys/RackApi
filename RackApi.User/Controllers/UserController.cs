@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -52,6 +51,26 @@ public class UserController : ControllerBase
 
         var tokenString = generateJwtToken(user.Email);
         return CreatedAtAction("Login", new { email = user.Email, password = user.Password }, user + " "+ tokenString);
+    }
+
+    [HttpDelete(Name = "DeleteUser")]
+    public async Task<ActionResult<string>> Delete(int id)
+    {
+        var userToDelete = await _context.Users.FindAsync(id);
+        if (userToDelete != null)
+        {
+            var producer = new RabbitMQProducer();
+            producer.PublishMessage(id.ToString());
+            
+            _context.Users.Attach(userToDelete);
+            _context.Users.Remove(userToDelete);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
     private string generateJwtToken(string email)

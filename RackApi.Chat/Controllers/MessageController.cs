@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using RackApi.Chat.Data;
 using RackApi.Chat.Models;
 
@@ -30,19 +29,6 @@ public class MessageController : ControllerBase
 
         return report;
     }
-    
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<MessageModel>> GetMessage(int id)
-    // {
-    //     var message = await _context.Messages.FindAsync(id);
-    //
-    //     if (message == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //
-    //     return message;
-    // }
 
     [HttpPost]
     public async Task<ActionResult<MessageModel>> PostMessage(MessageModel message)
@@ -53,11 +39,24 @@ public class MessageController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetMessages", new { id = message.Id }, message);
+    }
 
-        var producer = new RabbitMQProducer();
-        string stingJson = JsonConvert.SerializeObject(message);
-        producer.PublishMessage(stingJson);
+    [HttpDelete]
+    public async Task<ActionResult<String>> DeleteMessage(int userId)
+    {
+        var messagesToDelete = await _context.Messages.Where(x => x.ToUserId == userId).ToListAsync();
         
-        return message;
+        bool isNotEmpty = messagesToDelete.Any();
+        if (isNotEmpty)
+        {
+            foreach (var message in messagesToDelete)
+            {
+                _context.Messages.Attach(message);
+                _context.Messages.Remove(message);
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+        return NotFound();
     }
 }
