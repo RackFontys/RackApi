@@ -22,6 +22,7 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Include=".github\Workflows\ci.yml" />
     </ItemGroup>
 
 </Project>
