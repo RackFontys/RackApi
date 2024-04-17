@@ -44,6 +44,7 @@ public class MessageController : ControllerBase
     [HttpDelete]
     public async Task<ActionResult<String>> DeleteMessage(int userId)
     {
+        Console.WriteLine("test");
         var messagesToDelete = await _context.Messages.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
         
         bool isNotEmpty = messagesToDelete.Any();
