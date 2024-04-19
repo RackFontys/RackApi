@@ -1,11 +1,10 @@
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using RackApi.Chat;
-using RackApi.Chat.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RackApi.Chat;
 using RackApi.Chat.Controllers;
-using Microsoft.Extensions.Logging;
+using RackApi.Chat.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,17 +27,17 @@ builder.Services.AddScoped<MessageController>();
 var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidIssuer = "http://localhost:5012",
-        ValidAudience = "http://localhost:5114",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidIssuer = "http://localhost:5012",
+            ValidAudience = "http://localhost:5114",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+        };
+    });
 
 builder.Logging.AddConsole(); // Add console logging
 builder.Logging.AddDebug(); // Add debug logging

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RackApi.User", "RackApi.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RackApi.Chat", "RackApi.Chat\RackApi.Chat.csproj", "{859BED08-88E8-4D97-8DEB-D814B7DE51EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RackApi.IntegrationTest", "RackApi.IntegrationTest\RackApi.IntegrationTest.csproj", "{E77F9A3C-EB13-4454-A920-47A1613CA1EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{859BED08-88E8-4D97-8DEB-D814B7DE51EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859BED08-88E8-4D97-8DEB-D814B7DE51EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{859BED08-88E8-4D97-8DEB-D814B7DE51EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E77F9A3C-EB13-4454-A920-47A1613CA1EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E77F9A3C-EB13-4454-A920-47A1613CA1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E77F9A3C-EB13-4454-A920-47A1613CA1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E77F9A3C-EB13-4454-A920-47A1613CA1EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

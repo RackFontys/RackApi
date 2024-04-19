@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RackApi.Chat.Data;
@@ -11,21 +12,23 @@ namespace RackApi.Chat.Controllers;
 [Route("[controller]")]
 public class MessageController : ControllerBase
 {
-    private readonly ILogger<MessageController> _logger;
     private readonly ApiDbContext _context;
+    private readonly ILogger<MessageController> _logger;
 
     public MessageController(ILogger<MessageController> logger, ApiDbContext context)
     {
         _logger = logger;
         _context = context;
     }
-    
-    [HttpGet("{userId}")]
-    public async Task<List<MessageModel>> GetMessages(int userId)
+
+    [HttpGet]
+    public async Task<ActionResult<List<MessageModel>>> GetMessages(int userId)
     {
+        if (userId != GetUserIdFromJWT(HttpContext)) return Unauthorized();
+
         var query = _context.Messages.AsNoTracking();
 
-        var report = await query.Where(x => x.ToUserId == userId).ToListAsync();
+        var report = await query.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
 
         return report;
     }
@@ -33,6 +36,8 @@ public class MessageController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<MessageModel>> PostMessage(MessageModel message)
     {
+        if (message.UserId != GetUserIdFromJWT(HttpContext)) return Unauthorized();
+
         message.CreatedAt = DateTime.Now;
 
         _context.Messages.Add(message);
@@ -42,11 +47,14 @@ public class MessageController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<ActionResult<String>> DeleteMessage(int userId)
+    public async Task<ActionResult<string>> DeleteMessage(int userId)
     {
-        var messagesToDelete = await _context.Messages.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
-        
-        bool isNotEmpty = messagesToDelete.Any();
+        if (userId != GetUserIdFromJWT(HttpContext)) return Unauthorized();
+
+        var messagesToDelete =
+            await _context.Messages.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
+
+        var isNotEmpty = messagesToDelete.Any();
         if (isNotEmpty)
         {
             foreach (var message in messagesToDelete)
@@ -54,9 +62,27 @@ public class MessageController : ControllerBase
                 _context.Messages.Attach(message);
                 _context.Messages.Remove(message);
             }
+
             await _context.SaveChangesAsync();
             return Ok();
         }
+
         return NotFound();
+    }
+
+    private int GetUserIdFromJWT(HttpContext httpContext)
+    {
+        var authorizationHeader = httpContext.Request.Headers["Authorization"].FirstOrDefault();
+        string token = null;
+
+        if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
+            token = authorizationHeader.Substring("Bearer ".Length).Trim();
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtToken = tokenHandler.ReadJwtToken(token);
+
+        var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+        return Convert.ToInt16(userId);
     }
 }

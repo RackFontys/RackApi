@@ -1,67 +1,63 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Text;
 using RackApi.Chat.Controllers;
 
-namespace RackApi.Chat
+namespace RackApi.Chat;
+
+public class RabbitMQConsumer
 {
-    public class RabbitMQConsumer
+    private readonly ILogger<RabbitMQConsumer> _logger;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+
+    public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, IServiceScopeFactory serviceScopeFactory)
     {
-        private readonly ILogger<RabbitMQConsumer> _logger;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
+        _logger = logger;
+        _serviceScopeFactory = serviceScopeFactory;
+    }
 
-        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, IServiceScopeFactory serviceScopeFactory)
+    public async Task ConsumeMessages()
+    {
+        var factory = new ConnectionFactory { HostName = "localhost" };
+
+        using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
         {
-            _logger = logger;
-            _serviceScopeFactory = serviceScopeFactory;
-        }
+            channel.ExchangeDeclare("delete", ExchangeType.Fanout);
 
-        public async Task ConsumeMessages()
-        {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var queueName = channel.QueueDeclare().QueueName;
 
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            channel.QueueBind(queueName,
+                "delete",
+                string.Empty);
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += async (model, ea) =>
             {
-                channel.ExchangeDeclare(exchange: "delete", type: ExchangeType.Fanout);
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                _logger.LogInformation("Received message: {message}", message);
 
-                var queueName = channel.QueueDeclare().QueueName;
+                await ProcessMessage(message);
+            };
 
-                channel.QueueBind(queue: queueName,
-                    exchange: "delete",
-                    routingKey: string.Empty);
+            channel.BasicConsume(queueName,
+                true,
+                consumer);
 
-                var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += async (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    _logger.LogInformation("Received message: {message}", message);
-
-                    await ProcessMessage(message);
-                };
-
-                channel.BasicConsume(queue: queueName,
-                    autoAck: true,
-                    consumer: consumer);
-
-                _logger.LogInformation("Consumer is waiting for messages.");
-                await Task.Delay(-1);
-            }
+            _logger.LogInformation("Consumer is waiting for messages.");
+            await Task.Delay(-1);
         }
+    }
 
-        private async Task ProcessMessage(string message)
+    private async Task ProcessMessage(string message)
+    {
+        using (var scope = _serviceScopeFactory.CreateScope())
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var messageController = scope.ServiceProvider.GetRequiredService<MessageController>();
-                await messageController.DeleteMessage(Convert.ToInt16(message));
-            }
-
-            await Task.CompletedTask;
+            var messageController = scope.ServiceProvider.GetRequiredService<MessageController>();
+            await messageController.DeleteMessage(Convert.ToInt16(message));
         }
+
+        await Task.CompletedTask;
     }
 }

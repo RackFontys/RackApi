@@ -1,9 +1,8 @@
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using RackApi.User;
-using RackApi.User.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RackApi.User.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,16 +28,16 @@ var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
 
 // In ConfigureServices method
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = false,
-        ValidIssuer = "http://localhost:5012",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidIssuer = "http://localhost:5012",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+        };
+    });
 
 var app = builder.Build();
 
