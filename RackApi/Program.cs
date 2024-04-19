@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Configuration.AddJsonFile("ocelot.json", false, true);
+builder.Configuration.AddJsonFile("/app/ocelot.json", false, true);
 builder.Services.AddOcelot(builder.Configuration);
 
 builder.Logging.AddConsole();

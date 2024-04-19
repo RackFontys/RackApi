@@ -11,6 +11,21 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
     networks:
       - api_network
+        
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'RackUsers, RackChats'
+    volumes:
+      - db_data_users:/var/lib/postgresql/users
+      - db_data_users:/var/lib/postgresql/chats
+    networks:
+      - api_network
   
   rackapi:
     build:
@@ -20,11 +35,9 @@ services:
       - "5283:80"
     depends_on:
       - rabbitmq
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
+      - postgres
+    volumes:
+      - ./RackApi/ocelot.json:/app/ocelot.json
     networks:
       - api_network
 
@@ -36,6 +49,7 @@ services:
       - "5012:80"
     depends_on:
       - rabbitmq
+      - postgres
     networks:
       - api_network
 
@@ -47,6 +61,7 @@ services:
       - "5114:80"
     depends_on:
       - rabbitmq
+      - postgres
     networks:
       - api_network
 
@@ -55,3 +70,5 @@ networks:
 
 volumes:
   rabbitmq_data:
+  db_data_users:
+  db_data_chats:

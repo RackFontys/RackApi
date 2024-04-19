@@ -45,12 +45,12 @@ builder.Logging.AddDebug(); // Add debug logging
 var app = builder.Build();
 
 // Apply Migrations
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<ApiDbContext>();
-    dbContext.Database.Migrate();
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//     var dbContext = services.GetRequiredService<ApiDbContext>();
+//     dbContext.Database.Migrate();
+// }
 
 // In Configure method
 app.UseAuthentication();
