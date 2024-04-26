@@ -1,30 +1,64 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Xunit;
-using Assert = NUnit.Framework.Assert;
+using NUnit.Framework;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace RackApi.IntegrationTest;
 
-public class IntegrationTests
+public class ApiIntegrationTests
 {
-    private readonly HttpClient _client;
-    private readonly TestServer _server;
+    private HttpClient _client;
 
-    public IntegrationTests()
+    [SetUp]
+    public void Setup()
     {
-        // Arrange
-        _server = new TestServer(new WebHostBuilder().UseStartup<Program>());
-        _client = _server.CreateClient();
+        // Initialize HttpClient
+        _client = new HttpClient();
+        _client.BaseAddress = new Uri("http://localhost:5283");
     }
 
-    [Fact]
-    public async Task ReturnHelloWorld()
+    [Test]
+    public async Task Test_User_Creation()
     {
+        // Arrange
+        var user = new 
+        { 
+            Name = "Test User", 
+            Email = "test@example.com", 
+            CreatedAt = DateTime.UtcNow,
+            CompanyId = 1,
+            Password = "testpassword"
+        };
+        var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+
         // Act
-        var response = await _client.GetAsync(":5012/User?email=test&password=test");
-        response.EnsureSuccessStatusCode();
-        var responseString = await response.Content.ReadAsStringAsync();
+        var response = await _client.PostAsync("/User", content);
+
         // Assert
-        Assert.That(responseString, Is.SameAs("Hello world!"));
+        response.EnsureSuccessStatusCode();
+        // Additional assertions...
+    }
+
+    // [Test]
+    // public async Task Test_Chat_Creation()
+    // {
+    //     // Arrange
+    //     var chat = new { UserId = "user_id", Message = "Hello, world!" };
+    //     var content = new StringContent(JsonConvert.SerializeObject(chat), Encoding.UTF8, "application/json");
+    //
+    //     // Act
+    //     var response = await _client.PostAsync("/Message", content);
+    //
+    //     // Assert
+    //     response.EnsureSuccessStatusCode();
+    //     // Additional assertions...
+    // }
+
+    [TearDown]
+    public void TearDown()
+    {
+        // Cleanup
+        _client.Dispose();
     }
 }

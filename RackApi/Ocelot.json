@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "5114"
+          "Host": "message",
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/Message",
@@ -24,8 +24,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "5012"
+          "Host": "user",
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/User",
@@ -37,6 +37,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5283",
+    "BaseUrl": "https://localhost:5283"
   }
 }

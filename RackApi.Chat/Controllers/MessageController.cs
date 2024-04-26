@@ -49,16 +49,17 @@ public class MessageController : ControllerBase
     [HttpDelete]
     public async Task<ActionResult<string>> DeleteMessage(int userId)
     {
-        if (userId != GetUserIdFromJWT(HttpContext)) return Unauthorized();
-
         var messagesToDelete =
             await _context.Messages.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
-
+        
+        Console.WriteLine(messagesToDelete);
+        
         var isNotEmpty = messagesToDelete.Any();
         if (isNotEmpty)
         {
             foreach (var message in messagesToDelete)
             {
+                Console.WriteLine(message);
                 _context.Messages.Attach(message);
                 _context.Messages.Remove(message);
             }
@@ -70,7 +71,7 @@ public class MessageController : ControllerBase
         return NotFound();
     }
 
-    private int GetUserIdFromJWT(HttpContext httpContext)
+    private int? GetUserIdFromJWT(HttpContext httpContext)
     {
         var authorizationHeader = httpContext.Request.Headers["Authorization"].FirstOrDefault();
         string token = null;

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.IdentityModel.Tokens;
 using RackApi.User.Data;
 using RackApi.User.Models;
@@ -70,7 +71,7 @@ public class UserController : ControllerBase
         var userToDelete = await _context.Users.FindAsync(id);
         if (userToDelete != null)
         {
-            var producer = new RabbitMQProducer();
+            var producer = new RabbitMQProducer(_configuration);
             producer.PublishMessage(id.ToString());
 
             _context.Users.Attach(userToDelete);
@@ -86,7 +87,9 @@ public class UserController : ControllerBase
     {
         // Generate JWT Token
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["ConnectionStrings:DefaultJWTKey"]);
+        var key = Encoding.ASCII.GetBytes(_configuration["JsonWebTokenStrings:DefaultJWTKey"]);
+        var audience = _configuration["JsonWebTokenStrings:AudienceIp"];
+        var issuer = _configuration["JsonWebTokenStrings:IssuerIp"];
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
@@ -96,8 +99,8 @@ public class UserController : ControllerBase
             Expires = DateTime.UtcNow.AddHours(8), // Token expiration time
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            Audience = "http://localhost:5114",
-            Issuer = "http://localhost:5012"
+            Audience = audience,
+            Issuer = issuer
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var tokenString = tokenHandler.WriteToken(token);

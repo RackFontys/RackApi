@@ -7,23 +7,42 @@ services:
       - "5672:5672"  # RabbitMQ default port
       - "15672:15672"  # RabbitMQ management UI port
     environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+      RABBITMQ_DEFAULT_USER: 'guest'
+      RABBITMQ_DEFAULT_PASS: 'guest'
     networks:
       - api_network
-        
-  postgres:
-    image: postgres:latest
+  
+  postgres_users:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5433"
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'admin'
-      POSTGRES_DB: 'RackUsers, RackChats'
+      POSTGRES_DB: RackUsers
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_HOST_AUTH_METHOD: 'trust'  # Trust all connections
     volumes:
-      - db_data_users:/var/lib/postgresql/users
-      - db_data_users:/var/lib/postgresql/chats
+      - ./RackUsers.sql:/docker-entrypoint-initdb.d/init.sql  # Mount initialization script for RackChats database
+    networks:
+      - api_network
+  
+  postgres_chats:    
+    build:
+     context: .
+     dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "5434:5433"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: RackChats
+      POSTGRES_HOST_AUTH_METHOD: 'trust'  # Trust all connections
+    volumes:
+      - ./RackChats.sql:/docker-entrypoint-initdb.d/init.sql  # Mount initialization script for RackChats database
     networks:
       - api_network
   
@@ -35,7 +54,8 @@ services:
       - "5283:80"
     depends_on:
       - rabbitmq
-      - postgres
+      - postgres_users
+      - postgres_chats
     volumes:
       - ./RackApi/ocelot.json:/app/ocelot.json
     networks:
@@ -49,7 +69,7 @@ services:
       - "5012:80"
     depends_on:
       - rabbitmq
-      - postgres
+      - postgres_chats
     networks:
       - api_network
 
@@ -61,14 +81,10 @@ services:
       - "5114:80"
     depends_on:
       - rabbitmq
-      - postgres
+      - postgres_users
     networks:
       - api_network
 
 networks:
   api_network:
-
-volumes:
-  rabbitmq_data:
-  db_data_users:
-  db_data_chats:
+    driver: bridge

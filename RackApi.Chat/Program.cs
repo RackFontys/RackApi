@@ -10,21 +10,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApiDbContext>();
 
-builder.Services.AddDbContext<ApiDbContext>(options =>
-    options.UseNpgsql(connectionString));
+// Load environment variables
+builder.Configuration.AddEnvironmentVariables();
 
-// Add services to the container.z
-
+// Add services to the container.
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<MessageController>();
 
-var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
+var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
+var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
+var audience = builder.Configuration["JsonWebTokenStrings:AudienceIp"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -33,8 +35,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidIssuer = "http://localhost:5012",
-            ValidAudience = "http://localhost:5114",
+            ValidIssuer = issuer,
+            ValidAudience = audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
     });
@@ -42,15 +44,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Logging.AddConsole(); // Add console logging
 builder.Logging.AddDebug(); // Add debug logging
 
+
 var app = builder.Build();
 
 // Apply Migrations
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//     var dbContext = services.GetRequiredService<ApiDbContext>();
-//     dbContext.Database.Migrate();
-// }
+bool autoMigrate = Convert.ToBoolean(builder.Configuration["DatabaseStrings:ApplyMigrations"]);
+if (autoMigrate)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var dbContext = services.GetRequiredService<ApiDbContext>();
+        dbContext.Database.Migrate();
+    } 
+}
 
 // In Configure method
 app.UseAuthentication();
@@ -71,7 +78,7 @@ app.MapControllers();
 
 var logger = app.Services.GetRequiredService<ILogger<RabbitMQConsumer>>();
 var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
-var subscriber = new RabbitMQConsumer(logger, serviceScopeFactory);
+var subscriber = new RabbitMQConsumer(logger, serviceScopeFactory, app.Configuration);
 subscriber.ConsumeMessages();
 
 await app.RunAsync();

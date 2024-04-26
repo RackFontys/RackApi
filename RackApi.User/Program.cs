@@ -8,10 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<ApiDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<ApiDbContext>();
 
 // Load environment variables
 builder.Configuration.AddEnvironmentVariables();
@@ -23,8 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
+var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
+var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
 
 // In ConfigureServices method
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -34,7 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = true,
             ValidateAudience = false,
-            ValidIssuer = "http://localhost:5012",
+            ValidIssuer = issuer,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
     });
@@ -42,12 +39,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Apply Migrations
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//     var dbContext = services.GetRequiredService<ApiDbContext>();
-//     dbContext.Database.Migrate();
-// }
+bool autoMigrate = Convert.ToBoolean(builder.Configuration["DatabaseStrings:ApplyMigrations"]);
+if (autoMigrate)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var dbContext = services.GetRequiredService<ApiDbContext>();
+        dbContext.Database.Migrate();
+    } 
+}
 
 // In Configure method
 app.UseAuthentication();
