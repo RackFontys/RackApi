@@ -34,7 +34,7 @@ services:
   integration-tests:
     build:
       context: .
-      dockerfile: /RackApi.IntegrationTest/Dockerfile
+      dockerfile: ./RackApi.IntegrationTest/Dockerfile
     volumes:
       - .:/app
     depends_on:
