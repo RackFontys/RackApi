@@ -2,7 +2,7 @@
 WORKDIR /app
 
 # Copy the integration test project file and restore the dependencies
-COPY ["IntegrationTests/IntegrationTests.csproj", "RackApi.IntegrationTests/"]
+COPY ["RackApi.IntegrationTests/RackApi.IntegrationTests.csproj", "RackApi.IntegrationTests/"]
 WORKDIR "/app/RackApi.IntegrationTests"
 RUN dotnet restore
 
