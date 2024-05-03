@@ -9,10 +9,10 @@ COPY . .
 WORKDIR "/src/RackApi.IntegrationTest"
 RUN dotnet build "RackApi.IntegrationTest.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "RackApi.IntegrationTest.csproj" -c Release -o /app/publish
+# Run tests
+RUN dotnet test --logger:trx
 
 FROM base AS final
 WORKDIR /app
-
-ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "RackApi.IntegrationTest.dll"]
