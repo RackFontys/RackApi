@@ -1,14 +1,18 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 
-# Copy the integration test project file and restore the dependencies
-COPY ["RackApi.IntegrationTests/RackApi.IntegrationTests.csproj", "RackApi.IntegrationTests/"]
-WORKDIR "/app/RackApi.IntegrationTests"
-RUN dotnet restore
-
-# Copy the rest of the code and build the project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["RackApi.IntegrationTest.csproj", "RackApi.IntegrationTest/"]
+RUN dotnet restore "RackApi.IntegrationTest/RackApi.IntegrationTest.csproj"
 COPY . .
-RUN dotnet build -c Release --no-restore
+WORKDIR "/src/RackApi.IntegrationTest"
+RUN dotnet build "RackApi.IntegrationTest.csproj" -c Release -o /app/build
 
-# Run the tests
+FROM build AS publish
+RUN dotnet publish "RackApi.IntegrationTest.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
