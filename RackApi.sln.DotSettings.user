@@ -3,17 +3,15 @@
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\RackApi.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1131bd33_002Daef8_002D4d9b_002Db628_002Def41acdce1f1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IntegrationTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cbbfecf1_002D47eb_002D4f52_002D8efd_002D19c4227bf0d1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test_User_Creation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.ApiIntegrationTests.Test_User_Creation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.UserIntegrationTests.Test_User_Creation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.ChatIntegrationTests.Test_Chat_Creation&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7cd49e54_002D0299_002D4736_002Db433_002D04291c1813f3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IntegrationTests #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.IntegrationTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
 	
 	
 	

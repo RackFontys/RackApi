@@ -1,0 +1,43 @@
+﻿version: '3.8'
+
+services:
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - rabbitmq
+
+  user:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+
+  chat:
+    build:
+      context: ./chat-service
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+
+  integration-tests:
+    build:
+      context: .
+      dockerfile: RackApi.IntegrationTest/Dockerfile
+    volumes:
+      - .:/app
+    depends_on:
+      - api
+      - user
+      - chat
