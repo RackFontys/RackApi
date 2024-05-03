@@ -2,7 +2,9 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\RackApi.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi.IntegrationTest\bin\Debug\net8.0\RackApi.IntegrationTest.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cbbfecf1_002D47eb_002D4f52_002D8efd_002D19c4227bf0d1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test_User_Creation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.UserIntegrationTests.Test_User_Creation&lt;/TestId&gt;&#xD;
