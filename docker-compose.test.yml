@@ -11,7 +11,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./RackApi/Dockerfile
     ports:
       - "5000:80"
     depends_on:
@@ -19,22 +19,22 @@ services:
 
   user:
     build:
-      context: ./user-service
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./RackApi.User/Dockerfile
     depends_on:
       - rabbitmq
 
   chat:
     build:
-      context: ./chat-service
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./RackApi.Chat/Dockerfile
     depends_on:
       - rabbitmq
 
   integration-tests:
     build:
       context: .
-      dockerfile: RackApi.IntegrationTest/Dockerfile
+      dockerfile: /RackApi.IntegrationTest/Dockerfile
     volumes:
       - .:/app
     depends_on:
