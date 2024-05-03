@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["RackApi.IntegrationTest.csproj", "RackApi.IntegrationTest/"]
+COPY ["RackApi.IntegrationTest/RackApi.IntegrationTest.csproj", "RackApi.IntegrationTest/"]
 RUN dotnet restore "RackApi.IntegrationTest/RackApi.IntegrationTest.csproj"
 COPY . .
 WORKDIR "/src/RackApi.IntegrationTest"
