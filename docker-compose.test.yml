@@ -8,6 +8,7 @@ services:
       - "15672:15672"
     networks:
       - api_network
+    entrypoint: ["tail", "-f", "/dev/null"]
 
   api:
     build:
@@ -21,6 +22,7 @@ services:
       - ./RackApi/ocelot.json:/app/ocelot.json
     networks:
       - api_network
+    entrypoint: ["tail", "-f", "/dev/null"]
 
   user:
     build:
@@ -30,6 +32,7 @@ services:
       - rabbitmq
     networks:
       - api_network
+    entrypoint: ["tail", "-f", "/dev/null"]
 
   chat:
     build:
@@ -39,6 +42,7 @@ services:
       - rabbitmq
     networks:
       - api_network
+    entrypoint: ["tail", "-f", "/dev/null"]
 
   integration-tests:
     build:
@@ -52,6 +56,7 @@ services:
       - chat
     networks:
       - api_network
+    entrypoint: ["tail", "-f", "/dev/null"]
 
 networks:
   api_network:
