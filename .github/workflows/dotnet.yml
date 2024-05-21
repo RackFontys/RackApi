@@ -38,15 +38,15 @@ jobs:
 
       - name: Check container status
         run: |
-          docker ps -a
-
-      - name: Check logs
-        run: |
+          docker-compose ps
           docker-compose logs api
+          docker-compose logs user
+          docker-compose logs message
+          docker-compose logs integration-tests
 
       - name: Run tests
         run: |
-          docker exec rackapi_integration-tests_1 dotnet test /app/RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
+          docker exec $(docker ps -qf "name=integration-tests") dotnet test /app/RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
 
       - name: Clean up
         run: |
