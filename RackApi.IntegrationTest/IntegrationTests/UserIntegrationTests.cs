@@ -64,7 +64,7 @@ public class UserIntegrationTests
         var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 
         // Act
-        var response = await _client.PostAsync(_client2.BaseAddress, content);
+        var response = await _client2.PostAsync(_client2.BaseAddress, content);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -94,7 +94,7 @@ public class UserIntegrationTests
         var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 
         // Act
-        var response = await _client.PostAsync("/User", content);
+        var response = await _client3.PostAsync("/User", content);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -124,7 +124,7 @@ public class UserIntegrationTests
         var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 
         // Act
-        var response = await _client.PostAsync(_client.BaseAddress, content);
+        var response = await _client4.PostAsync(_client4.BaseAddress, content);
 
         // Assert
         response.EnsureSuccessStatusCode();
