@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: message
+    spec:
+      containers:
+        - image: jornkersten/rackmessages
+          name: message
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

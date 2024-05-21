@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: user
+spec:
+  selector:
+    app: user
+  ports:
+    - name: "http"
+      port: 5114
+      targetPort: 80

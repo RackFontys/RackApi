@@ -1,0 +1,3 @@
+﻿# Use the official PostgreSQL image from Docker Hub
+FROM postgres:latest
+COPY RackUsers.sql /docker-entrypoint-initdb.d/

@@ -12,10 +12,10 @@ services:
     networks:
       - api_network
   
-  postgres_users:
+  postgres-users:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile-users
     restart: always
     ports:
       - "5433:5433"
@@ -29,10 +29,10 @@ services:
     networks:
       - api_network
   
-  postgres_chats:    
+  postgres-chats:    
     build:
      context: .
-     dockerfile: ./Dockerfile
+     dockerfile: ./Dockerfile-chats
     restart: always
     ports:
       - "5434:5433"
@@ -46,7 +46,7 @@ services:
     networks:
       - api_network
   
-  rackapi:
+  api:
     build:
       context: .
       dockerfile: ./RackApi/Dockerfile
@@ -54,8 +54,8 @@ services:
       - "5283:80"
     depends_on:
       - rabbitmq
-      - postgres_users
-      - postgres_chats
+      - postgres-users
+      - postgres-chats
     volumes:
       - ./RackApi/ocelot.json:/app/ocelot.json
     networks:
@@ -69,7 +69,7 @@ services:
       - "5012:80"
     depends_on:
       - rabbitmq
-      - postgres_chats
+      - postgres-chats
     networks:
       - api_network
 
@@ -81,7 +81,7 @@ services:
       - "5114:80"
     depends_on:
       - rabbitmq
-      - postgres_users
+      - postgres-users
     networks:
       - api_network
 

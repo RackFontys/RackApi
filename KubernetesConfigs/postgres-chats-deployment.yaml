@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\windows\system32\kompose.exe convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgres-chats
+  name: postgres-chats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres-chats
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\windows\system32\kompose.exe convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/api-network: "true"
+        io.kompose.service: postgres-chats
+    spec:
+      containers:
+        - name: postgres-chats
+          image: jornkersten/rackchatsdatabase
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: RackChats
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_USER
+              value: postgres
+      restartPolicy: Always
+status: {}

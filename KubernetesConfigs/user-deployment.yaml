@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - image: jornkersten/rackusers
+          name: user
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

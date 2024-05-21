@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -11,28 +11,15 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.18" />
-        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.18" />
-        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.35.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-        <PackageReference Include="Npgsql" Version="7.0.6" />
         <PackageReference Include="NUnit" Version="3.14.0" />
         <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
-        <PackageReference Include="Testcontainers" Version="3.8.0" />
-        <PackageReference Include="Testcontainers.PostgreSql" Version="3.8.0" />
-        <PackageReference Include="xunit" Version="2.7.1" />
     </ItemGroup>
 
     <ItemGroup>
         <Using Include="NUnit.Framework" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="Microsoft.AspNetCore.TestHost">
-            <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.testhost\7.0.18\lib\net7.0\Microsoft.AspNetCore.TestHost.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
 </Project>

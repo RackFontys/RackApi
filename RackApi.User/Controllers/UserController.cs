@@ -25,6 +25,12 @@ public class UserController : ControllerBase
         _logger = logger;
         _context = context;
     }
+    
+    [HttpGet("test")]
+    public async Task<ActionResult<string>> HelloWorld()
+    {
+        return "Hello World";
+    }
 
     [HttpGet]
     public async Task<ActionResult<string>> Login(string email, string password)

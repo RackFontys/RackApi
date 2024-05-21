@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: message
+spec:
+  selector:
+    app: message
+  ports:
+    - name: "http"
+      port: 5012
+      targetPort: 80

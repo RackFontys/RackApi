@@ -3,12 +3,16 @@
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\RackApi.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi.IntegrationTest\bin\Debug\net8.0\RackApi.IntegrationTest.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\jorn-\Documents\Fontys\SI6 Software Advanced\Back-end\RackApi\RackApi.IntegrationTest\bin\Debug\net7.0\RackApi.IntegrationTest.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\7.0.408\MSBuild.dll</s:String>
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=C_003A_005CProgram_0020Files_005Cdotnet_005Csdk_005C7_002E0_002E408_005CMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cbbfecf1_002D47eb_002D4f52_002D8efd_002D19c4227bf0d1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test_User_Creation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.UserIntegrationTests.Test_User_Creation&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E77F9A3C-EB13-4454-A920-47A1613CA1EB::net8.0::RackApi.IntegrationTest.ChatIntegrationTests.Test_Chat_Creation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E9825168-7D73-4ECD-84A4-343D190FE45D::net7.0::RackApi.IntegrationTest.ChatIntegrationTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E9825168-7D73-4ECD-84A4-343D190FE45D::net7.0::RackApi.IntegrationTest.UserIntegrationTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
