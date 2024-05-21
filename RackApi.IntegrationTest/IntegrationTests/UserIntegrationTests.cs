@@ -12,7 +12,7 @@ public class UserIntegrationTests
     {
         // Initialize HttpClient
         _client = new HttpClient();
-        _client.BaseAddress = new Uri("http://localhost:5283");
+        _client.BaseAddress = new Uri("http://api:5283");
     }
 
     [Test]
