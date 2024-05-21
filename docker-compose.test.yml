@@ -57,7 +57,7 @@ services:
     depends_on:
       - api
       - user
-      - chat
+      - message
     networks:
       - api_network
     entrypoint: ["tail", "-f", "/dev/null"]
