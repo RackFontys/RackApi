@@ -20,6 +20,9 @@ jobs:
         options: --privileged
         ports:
           - 5432:5432
+          - 5283:5283
+          - 5114:5114
+          - 5012:5012
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
 
@@ -36,6 +39,10 @@ jobs:
       - name: Check container status
         run: |
           docker ps -a
+
+      - name: Check logs
+        run: |
+          docker-compose logs api
 
       - name: Run tests
         run: |

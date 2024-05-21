@@ -15,7 +15,7 @@ services:
       context: .
       dockerfile: ./RackApi/Dockerfile
     ports:
-      - "5000:80"
+      - "5283:80"
     depends_on:
       - rabbitmq
     volumes:
@@ -28,16 +28,20 @@ services:
     build:
       context: .
       dockerfile: ./RackApi.User/Dockerfile
+    ports:
+      - "5114:80"
     depends_on:
       - rabbitmq
     networks:
       - api_network
     entrypoint: ["tail", "-f", "/dev/null"]
 
-  chat:
+  message:
     build:
       context: .
       dockerfile: ./RackApi.Chat/Dockerfile
+    ports:
+      - "5012:80"
     depends_on:
       - rabbitmq
     networks:
