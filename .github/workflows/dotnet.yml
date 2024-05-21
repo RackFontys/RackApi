@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests
         run: |
-          docker exec integration-tests dotnet test /app/RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
+          docker exec rackapi_integration-tests_1 dotnet test /app/RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
 
       - name: Clean up
         run: |
