@@ -48,6 +48,9 @@ public class UserIntegrationTests
         var response = await _client.GetAsync("?email=test@example.com&password=testpassword");
         // _jwtToken = response.Headers;
         Console.WriteLine(response);
+        Console.WriteLine(response.Headers);
+        Console.WriteLine(response.Content);
+        Console.WriteLine(response.Content.Headers);
         
         // Assert
         response.EnsureSuccessStatusCode();
