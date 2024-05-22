@@ -20,7 +20,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "test.localhost",
+          "Host": "user",
           "Port": "80"
         }
       ],
@@ -29,6 +29,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://test.localhost"
+    "BaseUrl": "http://localhost"
   }
 }
