@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged
-        ports:
-          - 5432:5432
-          - 5283:5283
-          - 5114:5114
-          - 5012:5012
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
+#      docker:
+#        image: docker:19.03.12
+#        options: --privileged
+#        ports:
+#          - 5432:5432
+#          - 5283:5283
+#          - 5114:5114
+#          - 5012:5012
+#        volumes:
+#          - /var/run/docker.sock:/var/run/docker.sock
 
     steps:
       - uses: actions/checkout@v2
