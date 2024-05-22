@@ -19,11 +19,15 @@ jobs:
 
       - name: Build and run services
         run: |
-          docker-compose up -d --build
+          docker-compose up -d
 
       - name: Run tests
         run: |
           dotnet test RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
+
+      - name: Capture Docker Compose Logs
+        if: always()
+        run: docker-compose logs
 
       - name: Clean up
         run: |
