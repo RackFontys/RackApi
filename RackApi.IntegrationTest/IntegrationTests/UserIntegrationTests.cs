@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace RackApi.IntegrationTest;
@@ -46,12 +47,10 @@ public class UserIntegrationTests
 
         // Act
         var response = await _client.GetAsync("?email=test@example.com&password=testpassword");
-        // _jwtToken = response.Headers;
-        Console.WriteLine(response);
-        Console.WriteLine(response.Headers);
-        Console.WriteLine(response.Content);
-        Console.WriteLine(response.Content.Headers);
-        
+
+        string responseContent = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(responseContent);
+
         // Assert
         response.EnsureSuccessStatusCode();
     }
@@ -60,7 +59,7 @@ public class UserIntegrationTests
     public async Task Test_User_Delete()
     {
         // Arrange
-        
+        _jwtToken = JwtHelper.GenerateToken(1);
 
         // Act
         var response = await _client.DeleteAsync(_client.BaseAddress);
