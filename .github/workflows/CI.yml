@@ -19,10 +19,10 @@ jobs:
 
       - name: Build and run services
         run: |
-          docker-compose up -d
+          docker-compose up -d --build
 
-      - name: Make Health Check Script Executable
-        run: chmod +x ./Health-check-RabbitMQ.sh
+#      - name: Make Health Check Script Executable
+#        run: chmod +x ./Health-check-RabbitMQ.sh
 
       - name: Health check
         run: ./Health-check-RabbitMQ.sh
