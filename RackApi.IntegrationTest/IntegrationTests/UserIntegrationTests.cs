@@ -1,4 +1,6 @@
-﻿using System.Net.Http.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -8,6 +10,7 @@ public class UserIntegrationTests
 {
     private HttpClient _client;
     private string _jwtToken;
+    private int _userId;
 
     [SetUp]
     public void Setup()
@@ -48,8 +51,19 @@ public class UserIntegrationTests
         // Act
         var response = await _client.GetAsync("?email=test@example.com&password=testpassword");
 
-        string responseContent = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(responseContent);
+        _jwtToken = await response.Content.ReadAsStringAsync();
+        
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtSecurityToken = tokenHandler.ReadJwtToken(_jwtToken);
+
+        // Extract claims from the payload
+        var claims = new Dictionary<string, object>();
+        foreach (var claim in jwtSecurityToken.Claims)
+        {
+            claims.Add(claim.Type, claim.Value);
+        }
+
+        _userId = Convert.ToInt16(claims["userId"]);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -59,8 +73,9 @@ public class UserIntegrationTests
     public async Task Test_User_Delete()
     {
         // Arrange
-        _jwtToken = JwtHelper.GenerateToken(1);
-
+        _jwtToken = JwtHelper.GenerateToken(_userId);
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
+        
         // Act
         var response = await _client.DeleteAsync(_client.BaseAddress);
 
