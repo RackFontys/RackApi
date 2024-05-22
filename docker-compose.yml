@@ -9,6 +9,11 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: 'guest'
       RABBITMQ_DEFAULT_PASS: 'guest'
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:15672/api/healthchecks/node || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - api_network
   
@@ -26,6 +31,11 @@ services:
       POSTGRES_HOST_AUTH_METHOD: 'trust'  # Trust all connections
     volumes:
       - ./RackUsers.sql:/docker-entrypoint-initdb.d/init.sql  # Mount initialization script for RackChats database
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - api_network
   
@@ -43,6 +53,11 @@ services:
       POSTGRES_HOST_AUTH_METHOD: 'trust'  # Trust all connections
     volumes:
       - ./RackChats.sql:/docker-entrypoint-initdb.d/init.sql  # Mount initialization script for RackChats database
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - api_network
   
@@ -53,9 +68,12 @@ services:
     ports:
       - "5283:80"
     depends_on:
-      - rabbitmq
-      - postgres-users
-      - postgres-chats
+      rabbitmq:
+        condition: service_healthy
+      postgres-users:
+        condition: service_healthy
+      postgres-chats:
+        condition: service_healthy
     volumes:
       - ./RackApi/ocelot.json:/app/ocelot.json
     networks:
@@ -68,8 +86,10 @@ services:
     ports:
       - "5012:80"
     depends_on:
-      - rabbitmq
-      - postgres-chats
+      rabbitmq:
+        condition: service_healthy
+      postgres-chats:
+        condition: service_healthy
     networks:
       - api_network
 
@@ -80,8 +100,10 @@ services:
     ports:
       - "5114:80"
     depends_on:
-      - rabbitmq
-      - postgres-users
+      rabbitmq:
+        condition: service_healthy
+      postgres-users:
+        condition: service_healthy
     networks:
       - api_network
 
