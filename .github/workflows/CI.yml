@@ -21,8 +21,11 @@ jobs:
         run: |
           docker-compose up -d
 
-      - name: Wait for services to be ready
-        run: sleep 60
+      - name: Health check
+        run: |
+          ./Health-check-RabbitMQ.sh
+          ./Health-check-UserDB.sh
+          ./Health-check-MessageDB.sh
 
       - name: Run tests
         run: |
