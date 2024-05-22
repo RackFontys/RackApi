@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test 
+          dotnet test RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
 
       - name: Clean up
         run: |

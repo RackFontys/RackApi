@@ -13,7 +13,7 @@ public class UserIntegrationTests
     {
         // Initialize HttpClient
         _client = new HttpClient();
-        _client.BaseAddress = new Uri("http://localhost:5283");
+        _client.BaseAddress = new Uri("http://localhost:5283/User");
     }
 
     [Test]
@@ -32,7 +32,7 @@ public class UserIntegrationTests
         var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 
         // Act
-        var response = await _client.PostAsync("/User", content);
+        var response = await _client.PostAsync(_client.BaseAddress, content);
 
         // Assert
         response.EnsureSuccessStatusCode();
