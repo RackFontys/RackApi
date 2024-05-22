@@ -20,7 +20,7 @@ jobs:
       - name: Build and run services
         run: |
           docker-compose up -d --build
-          docker-compose exec -T rabbitmq sh -c 'until rabbitmqctl await_startup; do sleep 1; done'
+          docker-compose exec -T rabbitmq sh -c 'until rabbitmq await_startup; do sleep 1; done'
 
 #      - name: Wait for RabbitMQ to be ready
 #        run: |
