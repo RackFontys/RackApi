@@ -60,7 +60,7 @@ public class UserIntegrationTests
         
 
         // Act
-        var response = await _client.DeleteAsync(_client.BaseAddress, _jwtToken);
+        var response = await _client.DeleteAsync(_client.BaseAddress);
 
         // Assert
         response.EnsureSuccessStatusCode();
