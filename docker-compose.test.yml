@@ -34,16 +34,3 @@ services:
       - rabbitmq
     network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
-
-  integration-tests:
-    build:
-      context: .
-      dockerfile: ./RackApi.IntegrationTest/Dockerfile
-    volumes:
-      - .:/app
-    depends_on:
-      - api
-      - user
-      - message
-    network_mode: "host"
-    entrypoint: ["tail", "-f", "/dev/null"]

@@ -43,7 +43,7 @@ public class UserIntegrationTests
     {
         // Initialize HttpClient
         _client2 = new HttpClient();
-        _client2.BaseAddress = new Uri("http://user:5114");
+        _client2.BaseAddress = new Uri("http://localhost:5114");
     }
 
     [Test]
