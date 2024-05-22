@@ -20,12 +20,15 @@ jobs:
       - name: Build and run services
         run: |
           docker-compose up -d --build
+          docker-compose exec -T rabbitmq sh -c 'until rabbitmqctl await_startup; do sleep 1; done'
 
-      - name: Make Health Check Script Executable
-        run: chmod +x ./Health-check-RabbitMQ.sh
-
-      - name: Health check
-        run: ./Health-check-RabbitMQ.sh
+#      - name: Wait for RabbitMQ to be ready
+#        run: |
+#          until nc -zv localhost 5672; do
+#            echo "Waiting for RabbitMQ to start..."
+#            sleep 1
+#          done
+#          echo "RabbitMQ is ready!"
 
       - name: Run tests
         run: |
