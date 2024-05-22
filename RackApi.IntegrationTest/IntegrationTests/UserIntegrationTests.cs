@@ -45,7 +45,7 @@ public class UserIntegrationTests
         
 
         // Act
-        var response = await _client.GetAsync("?email=test&password=test");
+        var response = await _client.GetAsync("?email=test@example.com&password=testpassword");
         // _jwtToken = response.Headers;
         Console.WriteLine(response);
         
