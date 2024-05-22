@@ -3,9 +3,6 @@
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
 
@@ -13,8 +10,6 @@ services:
     build:
       context: .
       dockerfile: ./RackApi/Dockerfile
-    ports:
-      - "5283:80"
     depends_on:
       - rabbitmq
     volumes:
@@ -26,8 +21,6 @@ services:
     build:
       context: .
       dockerfile: ./RackApi.User/Dockerfile
-    ports:
-      - "5114:80"
     depends_on:
       - rabbitmq
     network_mode: "host"
@@ -37,8 +30,6 @@ services:
     build:
       context: .
       dockerfile: ./RackApi.Chat/Dockerfile
-    ports:
-      - "5012:80"
     depends_on:
       - rabbitmq
     network_mode: "host"
