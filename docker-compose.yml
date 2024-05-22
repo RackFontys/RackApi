@@ -13,7 +13,7 @@ services:
       test: [ "CMD-SHELL", "curl -f http://localhost:15672/api/healthchecks/node || exit 1" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - api_network
   
@@ -35,7 +35,7 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - api_network
   
@@ -57,7 +57,7 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - api_network
   
