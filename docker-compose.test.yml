@@ -6,8 +6,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - api_network
+    network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
 
   api:
@@ -20,8 +19,7 @@ services:
       - rabbitmq
     volumes:
       - ./RackApi/ocelot.json:/app/ocelot.json
-    networks:
-      - api_network
+    network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
 
   user:
@@ -32,8 +30,7 @@ services:
       - "5114:80"
     depends_on:
       - rabbitmq
-    networks:
-      - api_network
+    network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
 
   message:
@@ -44,8 +41,7 @@ services:
       - "5012:80"
     depends_on:
       - rabbitmq
-    networks:
-      - api_network
+    network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
 
   integration-tests:
@@ -58,10 +54,5 @@ services:
       - api
       - user
       - message
-    networks:
-      - api_network
+    network_mode: "host"
     entrypoint: ["tail", "-f", "/dev/null"]
-
-networks:
-  api_network:
-    driver: bridge
