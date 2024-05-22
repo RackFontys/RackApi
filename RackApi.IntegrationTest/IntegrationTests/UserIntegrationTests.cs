@@ -6,6 +6,7 @@ namespace RackApi.IntegrationTest;
 public class UserIntegrationTests
 {
     private HttpClient _client;
+    private string _jwtToken;
 
     [SetUp]
     public void Setup()
@@ -32,6 +33,34 @@ public class UserIntegrationTests
 
         // Act
         var response = await _client.PostAsync(_client.BaseAddress, content);
+
+        // Assert
+        response.EnsureSuccessStatusCode();
+    }
+
+    [Test]
+    public async Task Test_User_Retrieval()
+    {
+        // Arrange
+        
+
+        // Act
+        var response = await _client.GetAsync("?email=test&password=test");
+        // _jwtToken = response.Headers;
+        Console.WriteLine(response);
+        
+        // Assert
+        response.EnsureSuccessStatusCode();
+    }
+
+    [Test]
+    public async Task Test_User_Delete()
+    {
+        // Arrange
+        
+
+        // Act
+        var response = await _client.DeleteAsync(_client.BaseAddress, _jwtToken);
 
         // Assert
         response.EnsureSuccessStatusCode();
