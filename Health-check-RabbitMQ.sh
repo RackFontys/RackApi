@@ -1,9 +1,7 @@
 ﻿#!/bin/bash
 
-# Wait for the endpoint to return a 200 response
-until curl --fail --silent --insecure --output /dev/null "https://localhost:15672/api/healthchecks/node"; do
-    sleep 5
-    echo "Retrying"
+until curl --output /dev/null --silent --head --fail https://localhost:15672/api/healthchecks/node; do
+  echo "Waiting for RabbitMQ to start..."
+  sleep 1
 done
-
-echo "Endpoint is up!"
+echo "RabbitMQ is ready!"
