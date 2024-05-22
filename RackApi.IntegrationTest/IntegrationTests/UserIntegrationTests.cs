@@ -73,7 +73,7 @@ public class UserIntegrationTests
     public async Task Test_User_Delete()
     {
         // Arrange
-        _jwtToken = JwtHelper.GenerateToken(_userId);
+        _jwtToken = JwtHelper.GenerateToken(4);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
         
         // Act
