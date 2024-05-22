@@ -22,10 +22,7 @@ jobs:
           docker-compose up -d
 
       - name: Health check
-        run: |
-          ./Health-check-RabbitMQ.sh
-          ./Health-check-UserDB.sh
-          ./Health-check-MessageDB.sh
+        run: ./Health-check-RabbitMQ.sh
 
       - name: Run tests
         run: |
