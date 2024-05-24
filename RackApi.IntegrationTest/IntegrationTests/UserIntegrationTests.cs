@@ -62,9 +62,9 @@ public class UserIntegrationTests
         {
             claims.Add(claim.Type, claim.Value);
         }
-
         _userId = Convert.ToInt16(claims["userId"]);
 
+        Console.WriteLine(_userId);
         // Assert
         response.EnsureSuccessStatusCode();
     }
@@ -73,7 +73,7 @@ public class UserIntegrationTests
     public async Task Test_User_Delete()
     {
         // Arrange
-        _jwtToken = JwtHelper.GenerateToken(4);
+        _jwtToken = JwtHelper.GenerateToken(9);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
         
         // Act
