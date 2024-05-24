@@ -64,8 +64,6 @@ public class UserIntegrationTests
         }
         _userId = Convert.ToInt16(claims["userId"]);
 
-        Console.WriteLine(_userId);
-        Console.WriteLine(_jwtToken);
         // Assert
         response.EnsureSuccessStatusCode();
     }
@@ -78,7 +76,7 @@ public class UserIntegrationTests
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
         
         // Act
-        var response = await _client.DeleteAsync(_client.BaseAddress);
+        var response = await _client.DeleteAsync("?id=9");
 
         // Assert
         response.EnsureSuccessStatusCode();
