@@ -20,7 +20,7 @@ public class UserIntegrationTests
         _client.BaseAddress = new Uri("http://localhost:5283/User");
     }
 
-    [Test]
+    [Test, Order(1)]
     public async Task Test_User_Creation()
     {
         // Arrange
@@ -42,7 +42,7 @@ public class UserIntegrationTests
         response.EnsureSuccessStatusCode();
     }
 
-    [Test]
+    [Test, Order(2)]
     public async Task Test_User_Retrieval()
     {
         // Arrange
@@ -69,11 +69,11 @@ public class UserIntegrationTests
         response.EnsureSuccessStatusCode();
     }
 
-    [Test]
+    [Test, Order(3)]
     public async Task Test_User_Delete()
     {
         // Arrange
-        _jwtToken = JwtHelper.GenerateToken(9);
+        // _jwtToken = JwtHelper.GenerateToken(9);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
         
         // Act
