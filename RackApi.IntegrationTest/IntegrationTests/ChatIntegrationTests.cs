@@ -35,11 +35,7 @@ public class ChatIntegrationTests
 
         // Add the authentication token to the request headers
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
-        
-        Console.WriteLine(new AuthenticationHeaderValue("Bearer", _jwtToken));
-        Console.WriteLine(chat);
-        Console.WriteLine(content);
-        
+
         // Act
         var response = await _client.PostAsync(_client.BaseAddress, content);
 
