@@ -32,10 +32,10 @@ public class RabbitMQConsumer
 
         _logger.LogInformation("Trying to connect to RabbitMQ...");
         
-        var rabbitMqHost = _configuration["DatabaseStrings:RABBITMQ_HOST"];
-        int rabbitMqPort = Convert.ToInt16(_configuration["DatabaseStrings:RABBITMQ_PORT"]);
-        var rabbitMqUsername = _configuration["DatabaseStrings:RABBITMQ_USERNAME"];
-        var rabbitMqPassword = _configuration["DatabaseStrings:RABBITMQ_PASSWORD"];
+        var rabbitMqHost = _configuration["ConnectionStrings:RABBITMQ_HOST"];
+        int rabbitMqPort = Convert.ToInt16(_configuration["ConnectionStrings:RABBITMQ_PORT"]);
+        var rabbitMqUsername = _configuration["ConnectionStrings:RABBITMQ_USERNAME"];
+        var rabbitMqPassword = _configuration["ConnectionStrings:RABBITMQ_PASSWORD"];
         
         var factory = new ConnectionFactory
         {
