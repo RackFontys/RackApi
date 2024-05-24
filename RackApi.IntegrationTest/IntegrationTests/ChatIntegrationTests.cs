@@ -14,9 +14,9 @@ public class ChatIntegrationTests
     {
         // Initialize HttpClient
         _client = new HttpClient();
-        _client.BaseAddress = new Uri("http://localhost:5283");
+        _client.BaseAddress = new Uri("http://localhost:5283/Message");
         
-        _jwtToken = JwtHelper.GenerateToken(1);
+        _jwtToken = JwtHelper.GenerateToken(9);
     }
     
     [Test]
@@ -25,7 +25,7 @@ public class ChatIntegrationTests
         // Arrange
         var chat = new
         {
-            UserId = 1, 
+            UserId = 9, 
             Message = "Hello!", 
             CreatedAt = DateTime.Now, 
             ReadStatus = 0, 
@@ -36,8 +36,12 @@ public class ChatIntegrationTests
         // Add the authentication token to the request headers
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
         
+        Console.WriteLine(new AuthenticationHeaderValue("Bearer", _jwtToken));
+        Console.WriteLine(chat);
+        Console.WriteLine(content);
+        
         // Act
-        var response = await _client.PostAsync("/Message", content);
+        var response = await _client.PostAsync(_client.BaseAddress, content);
 
         // Assert
         response.EnsureSuccessStatusCode();
