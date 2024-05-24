@@ -65,6 +65,7 @@ public class UserIntegrationTests
         _userId = Convert.ToInt16(claims["userId"]);
 
         Console.WriteLine(_userId);
+        Console.WriteLine(_jwtToken);
         // Assert
         response.EnsureSuccessStatusCode();
     }
