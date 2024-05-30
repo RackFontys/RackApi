@@ -5,8 +5,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["RackApi.User/RackApi.User.csproj", "RackApi.User/"]
-RUN dotnet restore "RackApi.User/RackApi.User.csproj"
+COPY ["RackApi.User.csproj", "RackApi.User/"]
+RUN dotnet restore "RackApi.User.csproj"
 COPY . .
 WORKDIR "/src/RackApi.User"
 RUN dotnet build "RackApi.User.csproj" -c Release -o /app/build
