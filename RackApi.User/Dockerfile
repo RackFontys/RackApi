@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["RackApi.User.csproj", "RackApi.User.csproj"]
 RUN dotnet restore "RackApi.User.csproj"
 COPY . .
-WORKDIR "/src/RackApi.User"
+WORKDIR "/src/"
 RUN dotnet build "RackApi.User.csproj" -c Release -o /app/build
 
 FROM build AS publish
