@@ -76,7 +76,7 @@ services:
   user:
     build:
       context: .
-      dockerfile: ./RackApi.User/Dockerfile
+      dockerfile: ./RackApi.User/Dockerfile-User
     ports:
       - "5114:80"
     depends_on:
