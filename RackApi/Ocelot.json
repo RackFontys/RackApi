@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/Message",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MyJWT"
       }
@@ -25,7 +25,19 @@
         }
       ],
       "UpstreamPathTemplate": "/User",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/User/test",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/User/test",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {

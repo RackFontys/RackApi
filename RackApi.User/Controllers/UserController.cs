@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using RackApi.User.Data;
 using RackApi.User.Models;
 
@@ -37,23 +38,23 @@ public class UserController : ControllerBase
     {
         var queryable = _context.Users.AsNoTracking();
 
-        var reslut = await queryable.Where(x => x.Email == email && x.Password == password).FirstAsync();
+        var result = await queryable.Where(x => x.Email == email && x.Password == password).FirstAsync();
 
-        if (reslut == null) return NotFound();
+        if (result == null) return NotFound();
 
-        var tokenString = generateJwtToken(reslut.Id);
+        var tokenString = generateJwtToken(result.Name, result.Id);
         return tokenString;
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserModel>> Register(UserModel user)
+    public async Task<ActionResult<UserModel>> Register([FromBody] UserModel user)
     {
         user.CreatedAt = DateTime.Now;
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        var tokenString = generateJwtToken(user.Id);
+        var tokenString = generateJwtToken(user.Name, user.Id);
         return CreatedAtAction("Login", new { email = user.Email, password = user.Password }, tokenString);
     }
 
@@ -89,7 +90,7 @@ public class UserController : ControllerBase
         return NotFound();
     }
 
-    private string generateJwtToken(int id)
+    private string generateJwtToken(string name, int id)
     {
         // Generate JWT Token
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -100,7 +101,8 @@ public class UserController : ControllerBase
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim("userId", id.ToString())
+                new Claim("userName", name),
+                new Claim("userId", id.ToString()),
             }),
             Expires = DateTime.UtcNow.AddHours(8), // Token expiration time
             SigningCredentials =
