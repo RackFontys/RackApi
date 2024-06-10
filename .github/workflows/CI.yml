@@ -98,24 +98,25 @@ jobs:
 
       - name: Deploy database
         run: |
-          kubectl apply -f ../../KubernetesConfigs/postgres-chats-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/postgres-chats-service.yaml
-          kubectl apply -f ../../KubernetesConfigs/postgres-users-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/postgres-users-service.yaml
+          
+          kubectl apply -f ../KubernetesConfigs/postgres-chats-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/postgres-chats-service.yaml
+          kubectl apply -f ../KubernetesConfigs/postgres-users-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/postgres-users-service.yaml
 
       - name: Deploy RabbitMQ
         run: |
-          kubectl apply -f ../../KubernetesConfigs/rabbitmq-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/rabbitmq-service.yaml
+          kubectl apply -f ../KubernetesConfigs/rabbitmq-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/rabbitmq-service.yaml
           
       - name: Deploy service
         run: |
-          kubectl apply -f ../../KubernetesConfigs/user-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/user-service.yaml
-          kubectl apply -f ../../KubernetesConfigs/message-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/message-service.yaml
+          kubectl apply -f ../KubernetesConfigs/user-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/user-service.yaml
+          kubectl apply -f ../KubernetesConfigs/message-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/message-service.yaml
       
       - name: Deploy gateway
         run: |
-          kubectl apply -f ../../KubernetesConfigs/api-deployment.yaml
-          kubectl apply -f ../../KubernetesConfigs/api-service.yaml
+          kubectl apply -f ../KubernetesConfigs/api-deployment.yaml
+          kubectl apply -f ../KubernetesConfigs/api-service.yaml
