@@ -64,7 +64,7 @@ services:
   message:
     build:
       context: .
-      dockerfile: ./RackApi.Chat/Dockerfile-Chat
+      dockerfile: ./RackApi.Chat/DockerfileChat
     ports:
       - "5012:80"
     depends_on:
