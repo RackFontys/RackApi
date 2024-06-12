@@ -7,20 +7,19 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: test.localhost
-      http:
-        paths:
-          - path: /User
-            pathType: Prefix
-            backend:
-              service:
-                name: user
-                port:
-                  number: 5114
-          - path: /Message
-            pathType: Prefix
-            backend:
-              service:
-                name: message
-                port:
-                  number: 5012
+    - http:
+      paths:
+        - path: /User
+          pathType: Prefix
+          backend:
+            service:
+              name: user
+              port:
+                number: 5114
+        - path: /Message
+          pathType: Prefix
+          backend:
+            service:
+              name: message
+              port:
+                number: 5012
