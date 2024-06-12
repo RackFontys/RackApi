@@ -107,11 +107,6 @@ jobs:
           kubectl apply -f ./KubernetesConfigs/user-service.yaml
           kubectl apply -f ./KubernetesConfigs/message-deployment.yaml
           kubectl apply -f ./KubernetesConfigs/message-service.yaml
-      
-      - name: Deploy gateway
-        run: |
-          kubectl apply -f ./KubernetesConfigs/api-deployment.yaml
-          kubectl apply -f ./KubernetesConfigs/api-service.yaml
  
       - name: Deploy ingress
         run: |
