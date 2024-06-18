@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "message",
+          "Host": "test.localhost",
           "Port": "80"
         }
       ],
@@ -20,7 +20,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "user",
+          "Host": "test.localhost",
           "Port": "80"
         }
       ],
@@ -32,7 +32,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "user",
+          "Host": "test.localhost",
           "Port": "80"
         }
       ],
@@ -41,6 +41,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost"
+    "BaseUrl": "test.localhost"
   }
 }

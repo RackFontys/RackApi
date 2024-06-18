@@ -3,11 +3,13 @@ kind: Ingress
 metadata:
   name: example-ingress
   annotations:
+#    kubernetes.io/ingress.class: "gce"
+#    kubernetes.io/ingress.global-static-ip-name: "ingress-rack"
     ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-    - host:
+    - host: test.localhost
       http:
         paths:
           - path: /User

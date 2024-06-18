@@ -36,6 +36,7 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<string>> Login(string email, string password)
     {
+        Console.WriteLine(email + ' ' + password);
         var queryable = _context.Users.AsNoTracking();
 
         var result = await queryable.Where(x => x.Email == email && x.Password == password).FirstAsync();

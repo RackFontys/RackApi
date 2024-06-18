@@ -21,7 +21,6 @@ public class ApiDbContext : DbContext
         var dbDatabase = _configuration["DatabaseStrings:POSTGRES_DB"];
         var dbUsername = _configuration["DatabaseStrings:POSTGRES_USERNAME"];
         var dbPassword = _configuration["DatabaseStrings:POSTGRES_PASSWORD"];
-        Console.WriteLine(dbHost);
         
         // connect to postgres with connection string from app settings
         options.UseNpgsql($"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUsername};Password={dbPassword}");

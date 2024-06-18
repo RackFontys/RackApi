@@ -19,7 +19,9 @@ builder.Services.AddOcelot(builder.Configuration);
 
 builder.Logging.AddConsole();
 
-var secretKey = builder.Configuration.GetConnectionString("DefaultJWTKey");
+var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
+var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
+var audience = builder.Configuration["JsonWebTokenStrings:AudienceIp"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("MyJWT", options =>
@@ -28,8 +30,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidIssuer = "http://localhost:5012",
-            ValidAudience = "http://localhost:5114",
+            ValidIssuer = issuer,
+            ValidAudience = audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
     });
