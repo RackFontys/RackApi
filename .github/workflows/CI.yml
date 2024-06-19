@@ -49,10 +49,13 @@ jobs:
         run: |
           ls
           cd ./RackApi
+          cat appsetttings.json
           ls
           cd ../RackApi.Chat
+          cat appsetttings.json
           ls
           cd ../RackApi.User
+          cat appsetttings.json
           ls
 
       - name: Build and run services
