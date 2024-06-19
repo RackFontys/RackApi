@@ -31,6 +31,7 @@ public class ChatIntegrationTests
             ReadStatus = 0, 
             ToUserId = 2
         };
+        Console.WriteLine(_jwtToken);
         var content = new StringContent(JsonConvert.SerializeObject(chat), Encoding.UTF8, "application/json");
 
         // Add the authentication token to the request headers
