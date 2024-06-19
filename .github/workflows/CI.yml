@@ -29,7 +29,9 @@ jobs:
         run: |
           dotnet test RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
 
-      - uses: actions/checkout@v4
+      - name: Log docker-compose
+        run: |
+          docker-compose logs
         
       - name: Clean up
         run: |
