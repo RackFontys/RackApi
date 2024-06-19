@@ -22,7 +22,7 @@ cat <<EOF > ./appsettings.json
   "DataBaseStrings": {
     "ApplyMigrations": "false",
     "POSTGRES_HOST": "postgres-chats",
-    "POSTGRES_PORT": "5434",
+    "POSTGRES_PORT": "5432",
     "POSTGRES_DB": "RackChats",
     "POSTGRES_USERNAME": "$POSTGRES_USERNAME",
     "POSTGRES_PASSWORD": "$POSTGRES_PASSWORD"
