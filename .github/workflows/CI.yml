@@ -49,16 +49,16 @@ jobs:
         run: |
           echo api  ------------------
           cd ./RackApi
-          cat appsettings.json
           ls
+          cat appsettings.json
           echo chat ------------------
           cd ../RackApi.Chat
-          cat appsettings.json
           ls
+          cat appsettings.json
           echo user ------------------
           cd ../RackApi.User
-          cat appsettings.json
           ls
+          cat appsettings.json
 
       - name: Build and run services
         run: |
