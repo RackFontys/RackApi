@@ -27,6 +27,5 @@ cat <<EOF > ./appsettings.json
     "POSTGRES_USERNAME": "$POSTGRES_USERNAME",
     "POSTGRES_PASSWORD": "$POSTGRES_PASSWORD"
   },
-  "AllowedHosts": "*"
 }
 EOF
