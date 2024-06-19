@@ -98,6 +98,9 @@ public class UserController : ControllerBase
         var key = Encoding.ASCII.GetBytes(_configuration["JsonWebTokenStrings:DefaultJWTKey"]);
         var audience = _configuration["JsonWebTokenStrings:AudienceIp"];
         var issuer = _configuration["JsonWebTokenStrings:IssuerIp"];
+        
+        Console.WriteLine("JWT info: " + key.Length + ", " + audience + ", " + issuer);
+        
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
