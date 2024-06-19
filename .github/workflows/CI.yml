@@ -35,7 +35,7 @@ jobs:
 
       - name: Give execute permissions to the script
         run: |
-          chmod +x ./RackApi/create_appsettings.sh
+          chmod +x ./RackApi/createAppsettings.sh
           chmod +x ./RackApi.Chat/create_appsettings.sh
           chmod +x ./RackApi.User/create_appsettings.sh
 

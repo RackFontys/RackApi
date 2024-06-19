@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-
+echo "Hello, world!"
 cat > ./appsettings.json <<EOF
 {
   "Logging": {
