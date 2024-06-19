@@ -22,49 +22,28 @@ jobs:
       ISSUER_IP: ${{ secrets.ISSUER_IP }}
       AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
       JWT_KEY: ${{ secrets.JWT_KEY }}
+      RABBITMQ_USERNAME: ${{ secrets.RABBITMQ_USERNAME }}
+      RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+      POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      OCELLOT_USER_SERVICE: ${{ secrets.OCELLOT_USER_SERVICE }}
+      OCELLOT_MESSAGE_SERVICE: ${{ secrets.OCELLOT_MESSAGE_SERVICE }}
+      OCELLOT_DEFAULT_ADDRESS: ${{ secrets.OCELLOT_DEFAULT_ADDRESS }}
+      
     steps:
       - uses: actions/checkout@v4
 
       - name: Give execute permissions to the script
-        run: chmod +x ./RackApi/create_appsettings.sh
+        run: |
+          chmod +x ./RackApi/create_appsettings.sh
+          chmod +x ./RackApi.Chat/create_appsettings.sh
+          chmod +x ./RackApi.User/create_appsettings.sh
 
       - name: Create appsettings.json
-        run: ./RackApi/create_appsettings.sh
-        env:
-          ISSUER_IP: ${{ secrets.ISSUER_IP }}
-          AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          OCELLOT_USER_SERVICE: ${{ secrets.OCELLOT_USER_SERVICE }}
-          OCELLOT_MESSAGE_SERVICE: ${{ secrets.OCELLOT_MESSAGE_SERVICE }}
-          OCELLOT_DEFAULT_ADDRESS: ${{ secrets.OCELLOT_DEFAULT_ADDRESS }}
-
-      - name: Give execute permissions to the script
-        run: chmod +x ./RackApi.Chat/create_appsettings.sh
-
-      - name: Create appsettings.json
-        run: ./RackApi.Chat/create_appsettings.sh
-        env:
-          RABBITMQ_USERNAME: ${{ secrets.RABBITMQ_USERNAME }}
-          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
-          ISSUER_IP: ${{ secrets.ISSUER_IP }}
-          AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-
-      - name: Give execute permissions to the script
-        run: chmod +x ./RackApi.User/create_appsettings.sh
-
-      - name: Create appsettings.json
-        run: ./RackApi.User/create_appsettings.sh
-        env:
-          RABBITMQ_USERNAME: ${{ secrets.RABBITMQ_USERNAME }}
-          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
-          ISSUER_IP: ${{ secrets.ISSUER_IP }}
-          AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: |
+          ./RackApi/create_appsettings.sh
+          ./RackApi.Chat/create_appsettings.sh
+          ./RackApi.User/create_appsettings.sh
 
       - name: Build and run services
         run: |
