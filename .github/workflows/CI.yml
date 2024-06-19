@@ -70,9 +70,9 @@ jobs:
       - name: Run tests
         run: |
           dotnet test RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
-        allow_failure: true
 
       - name: logs
+        if: always()
         run: |
           docker-compose logs
         
