@@ -23,6 +23,8 @@ var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
 var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
 var audience = builder.Configuration["JsonWebTokenStrings:AudienceIp"];
 
+Console.WriteLine("GW JWT values: " + issuer +", "+ audience +", "+ secretKey);
+Console.WriteLine("GW JWT values: " + issuer.Length +", "+ audience.Length +", "+ secretKey.Length);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("MyJWT", options =>
     {
