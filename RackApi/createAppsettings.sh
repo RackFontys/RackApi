@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
-echo "Hello, world!"
-cat > ./appsettings.json <<EOF
+
+json_content=$(cat <<EOF
 {
   "Logging": {
     "LogLevel": {
@@ -20,3 +20,10 @@ cat > ./appsettings.json <<EOF
   }
 }
 EOF
+)
+
+json_file="appsettings.json"
+
+echo "$json_content" > "$json_file"
+
+echo "JSON file '$json_file' created."
