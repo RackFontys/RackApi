@@ -47,13 +47,15 @@ jobs:
       
       - name: Find files
         run: |
-          ls
+          echo api  ------------------
           cd ./RackApi
           cat appsettings.json
           ls
+          echo chat ------------------
           cd ../RackApi.Chat
           cat appsettings.json
           ls
+          echo user ------------------
           cd ../RackApi.User
           cat appsettings.json
           ls
