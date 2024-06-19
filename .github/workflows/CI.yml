@@ -77,8 +77,18 @@ jobs:
       - name: logs
         if: always()
         run: |
-          docker-compose logs
-        
+          docker-compose logs api
+
+      - name: logs
+        if: always()
+        run: |
+          docker-compose logs message
+
+      - name: logs
+        if: always()
+        run: |
+          docker-compose logs user
+      
       - name: Clean up
         run: |
           docker-compose down
