@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen();
 
 var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
 var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
-Console.WriteLine("Chat: " + issuer + ", " + secretKey);
+
 // In ConfigureServices method
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

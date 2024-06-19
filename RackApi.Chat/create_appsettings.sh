@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-cat <<EOF > ./appsettings.json
+cat > ./appsettings.json <<EOF
 {
   "Logging": {
     "LogLevel": {
