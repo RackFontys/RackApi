@@ -3,6 +3,11 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
-*/appsettings.json
-*/appsettings.Development.json
+RackApi/appsettings.json
+RackApi/appsettings.Development.json
+RackApi.User/appsettings.json
+RackApi.User/appsettings.Development.json
+RackApi.Chat/appsettings.json
+RackApi.Chat/appsettings.Development.json
+RackApi.IntegrationTest/appsettings.json
 data/pgsql/*
