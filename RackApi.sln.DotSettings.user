@@ -8,6 +8,13 @@
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\7.0.408\MSBuild.dll</s:String>
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=C_003A_005CProgram_0020Files_005Cdotnet_005Csdk_005C7_002E0_002E408_005CMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9042e168_002D12c5_002D4595_002D86b6_002D95b42bbf01fa/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ChatIntegrationTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E9825168-7D73-4ECD-84A4-343D190FE45D::net7.0::RackApi.IntegrationTest.ChatIntegrationTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E9825168-7D73-4ECD-84A4-343D190FE45D::net7.0::RackApi.IntegrationTest.UserIntegrationTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	
