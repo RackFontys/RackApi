@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Give execute permissions to the script
-        run: chmod +x ./create_appsettings.sh
+        run: chmod +x ../RackApi/create_appsettings.sh
 
       - name: Create appsettings.json
         run: ../RackApi/create_appsettings.sh
@@ -30,6 +30,9 @@ jobs:
           OCELLOT_USER_SERVICE: ${{ secrets.OCELLOT_USER_SERVICE }}
           OCELLOT_MESSAGE_SERVICE: ${{ secrets.OCELLOT_MESSAGE_SERVICE }}
           OCELLOT_DEFAULT_ADDRESS: ${{ secrets.OCELLOT_DEFAULT_ADDRESS }}
+
+      - name: Give execute permissions to the script
+        run: chmod +x ../RackApi.Chat/create_appsettings.sh
 
       - name: Create appsettings.json
         run: ../RackApi.Chat/create_appsettings.sh
@@ -42,6 +45,9 @@ jobs:
           POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
+      - name: Give execute permissions to the script
+        run: chmod +x ../RackApi.User/create_appsettings.sh
+
       - name: Create appsettings.json
         run: ../RackApi.User/create_appsettings.sh
         env:
@@ -52,6 +58,9 @@ jobs:
           JWT_KEY: ${{ secrets.JWT_KEY }}
           POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
+      - name: Give execute permissions to the script
+        run: chmod +x ../RackApi.IntegrationTest/create_appsettings.sh
 
       - name: Create appsettings.json
         run: ../RackApi.IntegrationTest/create_appsettings.sh
