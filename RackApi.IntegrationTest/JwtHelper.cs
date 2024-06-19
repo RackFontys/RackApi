@@ -28,6 +28,7 @@ public class JwtHelper
             Issuer = issuer
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
+        Console.WriteLine("token: " + token);
         return tokenHandler.WriteToken(token);
     }
 }
