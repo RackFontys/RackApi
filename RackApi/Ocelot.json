@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "message",
+          "Host": "{{Ocelot:MessageService}}",
           "Port": "80"
         }
       ],
@@ -20,7 +20,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "user",
+          "Host": "{{Ocelot:UserService}}",
           "Port": "80"
         }
       ],
@@ -32,7 +32,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "user",
+          "Host": "{{Ocelot:UserService}}",
           "Port": "80"
         }
       ],
@@ -41,6 +41,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5283"
+    "BaseUrl": "{{Ocelot:DefaultAddress}}"
   }
 }
