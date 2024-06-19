@@ -17,6 +17,7 @@ cat <<EOF > ./appsettings.json
     "UserService": "$OCELLOT_USER_SERVICE",
     "MessageService": "$OCELLOT_MESSAGE_SERVICE",
     "DefaultAddress": "$OCELLOT_DEFAULT_ADDRESS"
-  }
+  },
+  "AllowedHosts": "*"
 }
 EOF
