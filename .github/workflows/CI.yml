@@ -18,6 +18,10 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    env:
+      ISSUER_IP: ${{ secrets.ISSUER_IP }}
+      AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
+      JWT_KEY: ${{ secrets.JWT_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,16 +62,6 @@ jobs:
           JWT_KEY: ${{ secrets.JWT_KEY }}
           POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-
-      - name: Give execute permissions to the script
-        run: chmod +x ./RackApi.IntegrationTest/create_appsettings.sh
-
-      - name: Create appsettings.json
-        run: ./RackApi.IntegrationTest/create_appsettings.sh
-        env:
-          ISSUER_IP: ${{ secrets.ISSUER_IP }}
-          AUDIENCE_IP: ${{ secrets.AUDIENCE_IP }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
 
       - name: Build and run services
         run: |

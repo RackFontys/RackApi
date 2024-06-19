@@ -9,11 +9,11 @@ public class JwtHelper
 {
     public static string GenerateToken(int id)
     {
-        var audience = "{{JsonWebTokenStrings:AudienceIp}}";
-        var issuer = "{{JsonWebTokenStrings:IssuerIp}}";
+        var issuer = Environment.GetEnvironmentVariable("ISSUER_IP");
+        var audience = Environment.GetEnvironmentVariable("AUDIENCE_IP");
         
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("{{JsonWebTokenStrings:DefaultJWTKey}}");
+        var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY"));
         
         Console.WriteLine("values: " + audience + ", " + issuer + ", " + key);
         var tokenDescriptor = new SecurityTokenDescriptor
