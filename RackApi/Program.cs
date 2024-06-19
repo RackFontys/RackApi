@@ -22,8 +22,11 @@ builder.Logging.AddConsole();
 var secretKey = builder.Configuration["JsonWebTokenStrings:DefaultJWTKey"];
 var issuer = builder.Configuration["JsonWebTokenStrings:IssuerIp"];
 var audience = builder.Configuration["JsonWebTokenStrings:AudienceIp"];
+var ocelotUser = builder.Configuration["Ocelot:UserService"];
+var ocelotMessage = builder.Configuration["Ocelot:UserService"];
+var ocelotAddress = builder.Configuration["Ocelot:DefaultAddress"];
+Console.WriteLine("GW: " + ocelotUser + ", " + ocelotMessage + ", " + ocelotAddress);
 Console.WriteLine("GW: " + issuer + ", " + audience + ", " + secretKey);
-Console.WriteLine("GW: " + issuer.Length + ", " + audience.Length + ", " + secretKey.Length);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("MyJWT", options =>
     {
