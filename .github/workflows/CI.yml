@@ -44,6 +44,16 @@ jobs:
           ./RackApi/create_appsettings.sh
           ./RackApi.Chat/create_appsettings.sh
           ./RackApi.User/create_appsettings.sh
+      
+      - name: Find files
+        run: |
+          ls
+          cd ./RackApi
+          ls
+          cd ../RackApi.Chat
+          ls
+          cd ../RackApi.User
+          ls
 
       - name: Build and run services
         run: |
