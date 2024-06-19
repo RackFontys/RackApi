@@ -8,10 +8,25 @@ cat <<EOF > ./appsettings.json
       "Microsoft.AspNetCore": "Warning"
     }
   },
-  "Ocelot": {
-    "UserService": "$OCELLOT_USER_SERVICE",
-    "MessageService": "$OCELLOT_MESSAGE_SERVICE",
-    "DefaultAddress": "$OCELLOT_DEFAULT_ADDRESS"
-  }
+  "ConnectionStrings": {
+    "RABBITMQ_HOST": "rabbitmq",
+    "RABBITMQ_PORT": "5672",
+    "RABBITMQ_USERNAME": "$RABBITMQ_USERNAME",
+    "RABBITMQ_PASSWORD": "$RABBITMQ_PASSWORD"
+  },
+  "JsonWebTokenStrings": {
+    "IssuerIp": "$ISSUER_IP",
+    "AudienceIp": "$AUDIENCE_IP",
+    "DefaultJWTKey": "$JWT_KEY"
+  },
+  "DataBaseStrings": {
+    "ApplyMigrations": "false",
+    "POSTGRES_HOST": "postgres-users",
+    "POSTGRES_PORT": "5432",
+    "POSTGRES_DB": "RackUsers",
+    "POSTGRES_USERNAME": "$POSTGRES_USERNAME",
+    "POSTGRES_PASSWORD": "$POSTGRES_PASSWORD"
+  },
+  "AllowedHosts": "*"
 }
 EOF

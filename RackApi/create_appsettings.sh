@@ -8,6 +8,11 @@ cat <<EOF > ./appsettings.json
       "Microsoft.AspNetCore": "Warning"
     }
   },
+  "JsonWebTokenStrings": {
+    "IssuerIp": "$ISSUER_IP",
+    "AudienceIp": "$AUDIENCE_IP",
+    "DefaultJWTKey": "$JWT_KEY"
+  },
   "Ocelot": {
     "UserService": "$OCELLOT_USER_SERVICE",
     "MessageService": "$OCELLOT_MESSAGE_SERVICE",

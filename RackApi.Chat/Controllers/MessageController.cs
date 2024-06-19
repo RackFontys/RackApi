@@ -36,7 +36,6 @@ public class MessageController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<MessageModel>> PostMessage(MessageModel message)
     {
-        Console.WriteLine(message.UserId);
         if (message.UserId != GetUserIdFromJWT(HttpContext)) return Unauthorized();
 
         message.CreatedAt = DateTime.Now;
@@ -53,14 +52,11 @@ public class MessageController : ControllerBase
         var messagesToDelete =
             await _context.Messages.Where(x => x.ToUserId == userId || x.UserId == userId).ToListAsync();
         
-        Console.WriteLine(messagesToDelete);
-        
         var isNotEmpty = messagesToDelete.Any();
         if (isNotEmpty)
         {
             foreach (var message in messagesToDelete)
             {
-                Console.WriteLine(message);
                 _context.Messages.Attach(message);
                 _context.Messages.Remove(message);
             }
@@ -84,7 +80,6 @@ public class MessageController : ControllerBase
         var jwtToken = tokenHandler.ReadJwtToken(token);
 
         var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
-        Console.WriteLine(userId);
         return Convert.ToInt16(userId);
     }
 }
