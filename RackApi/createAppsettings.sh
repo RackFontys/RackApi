@@ -22,7 +22,7 @@ json_content=$(cat <<EOF
 EOF
 )
 
-json_file="appsettings.json"
+json_file="./RackApi/appsettings.json"
 
 echo "$json_content" > "$json_file"
 
