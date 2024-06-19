@@ -13,7 +13,7 @@ public class JwtHelper
         var issuer = "http://test.localhost:5012";
         
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("bfbaa608ebbd10c99e64855e87f874046d1db7cf5c01a3b8b52264fbe521fa1b"); // Replace "your_secret_key" with your actual secret key
+        var key = Encoding.ASCII.GetBytes("bfbaa608ebbd10c99e64855e87f874046d1db7cf5c01a3b8b52264fbe521fa1b");
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]

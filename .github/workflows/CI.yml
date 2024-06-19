@@ -24,8 +24,6 @@ jobs:
       - name: Build and run services
         run: |
           docker-compose up -d --build
-          
-      - uses: actions/checkout@v4
 
       - name: Run tests
         run: |
