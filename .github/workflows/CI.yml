@@ -41,7 +41,7 @@ jobs:
 
       - name: Create appsettings.json
         run: |
-          ./RackApi/create_appsettings.sh
+          ./RackApi/createAppsettings.sh
           ./RackApi.Chat/create_appsettings.sh
           ./RackApi.User/create_appsettings.sh
       
