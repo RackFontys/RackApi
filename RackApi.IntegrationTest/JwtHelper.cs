@@ -9,11 +9,13 @@ public class JwtHelper
 {
     public static string GenerateToken(int id)
     {
-        var audience = "http://test.localhost:5114";
-        var issuer = "http://test.localhost:5012";
+        var audience = "{{JsonWebTokenStrings:AudienceIp}}";
+        var issuer = "{{JsonWebTokenStrings:IssuerIp}}";
         
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("bfbaa608ebbd10c99e64855e87f874046d1db7cf5c01a3b8b52264fbe521fa1b");
+        var key = Encoding.ASCII.GetBytes("{{JsonWebTokenStrings:DefaultJWTKey}}");
+        
+        Console.WriteLine("values: " + audience + ", " + issuer + ", " + key);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
