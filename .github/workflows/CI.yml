@@ -70,6 +70,10 @@ jobs:
       - name: Run tests
         run: |
           dotnet test RackApi.IntegrationTest/RackApi.IntegrationTest.csproj
+
+      - name: logs
+        run: |
+          docker-compose logs
         
       - name: Clean up
         run: |
