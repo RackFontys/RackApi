@@ -15,7 +15,7 @@ public class JwtHelper
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY"));
         
-        Console.WriteLine("values: " + audience + ", " + issuer + ", " + key);
+        Console.WriteLine("values: " + audience.Length + ", " + issuer.Length + ", " + key.Length);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
