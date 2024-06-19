@@ -21,9 +21,9 @@ json_content=$(cat <<EOF
   },
   "DataBaseStrings": {
     "ApplyMigrations": "false",
-    "POSTGRES_HOST": "postgres-chats",
+    "POSTGRES_HOST": "postgres-users",
     "POSTGRES_PORT": "5432",
-    "POSTGRES_DB": "RackChats",
+    "POSTGRES_DB": "RackUsers",
     "POSTGRES_USERNAME": "$POSTGRES_USERNAME",
     "POSTGRES_PASSWORD": "$POSTGRES_PASSWORD"
   },

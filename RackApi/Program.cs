@@ -27,8 +27,6 @@ var audience = builder.Configuration["JsonWebTokenStrings:AudienceIp"];
 var ocelotUser = builder.Configuration["Ocelot:UserService"];
 var ocelotMessage = builder.Configuration["Ocelot:UserService"];
 var ocelotAddress = builder.Configuration["Ocelot:DefaultAddress"];
-Console.WriteLine("GW: " + ocelotUser + ", " + ocelotMessage + ", " + ocelotAddress);
-Console.WriteLine("GW: " + issuer + ", " + audience + ", " + secretKey);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("MyJWT", options =>
     {

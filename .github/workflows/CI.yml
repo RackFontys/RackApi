@@ -44,21 +44,6 @@ jobs:
           ./RackApi/createAppsettings.sh
           ./RackApi.Chat/create_appsettings.sh
           ./RackApi.User/create_appsettings.sh
-      
-      - name: Find files
-        run: |
-          echo api  ------------------
-          cd ./RackApi
-          ls
-          cat appsettings.json
-          echo chat ------------------
-          cd ../RackApi.Chat
-          ls
-          cat appsettings.json
-          echo user ------------------
-          cd ../RackApi.User
-          ls
-          cat appsettings.json
 
       - name: Build and run services
         run: |
